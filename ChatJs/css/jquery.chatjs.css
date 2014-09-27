@@ -212,6 +212,7 @@ textarea.chat-window-text-box {
         -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
         box-sizing: border-box; /* Opera/IE 8+ */
         height: 16px;
+        outline: 0;
     }
 
 .chat-message {

@@ -109,7 +109,7 @@ class MessageBoard {
         this.options.adapter.server.getMessageHistory(this.options.roomId, this.options.conversationId, this.options.otherUserId, messages => {
 
             for (var i = 0; i < messages.length; i++) {
-                this.addMessage(messages[i], null, false);
+                this.addMessage(messages[i], false);
             }
 
             this.adjustScroll();
@@ -177,8 +177,9 @@ class MessageBoard {
         var message = new ChatMessageInfo();
         message.UserFromId = this.options.userId;
         message.Message = messageText;
+        message.ClientGuid = clientGuid;
 
-        this.addMessage(message, clientGuid);
+        this.addMessage(message);
 
         this.options.adapter.server.sendMessage(this.options.roomId, this.options.conversationId, this.options.otherUserId, messageText, clientGuid, () => {});
     }
@@ -204,7 +205,7 @@ class MessageBoard {
         this.$textBox.focus();
     }
 
-    addMessage(message: ChatMessageInfo, clientGuid?: string, scroll?: boolean) {
+    addMessage(message: ChatMessageInfo, scroll?: boolean) {
         /// <summary>
         ///     Adds a message to the board. This method is called both when the current user or the other user is sending a
         ///     message
@@ -278,8 +279,8 @@ class MessageBoard {
             $("p[data-val-client-guid='" + message.ClientGuid + "']").removeClass("temp-message").removeAttr("data-val-client-guid");
         } else {
             var $messageP = $("<p/>").text(message.Message);
-            if (clientGuid)
-                $messageP.attr("data-val-client-guid", clientGuid).addClass("temp-message");
+            if (message.ClientGuid)
+                $messageP.attr("data-val-client-guid", message.ClientGuid).addClass("temp-message");
 
             linkify($messageP);
             emotify($messageP);
