@@ -1,6 +1,6 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Chatjs by andrerpena 2</title>
@@ -11,61 +11,106 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-  </head>
-  <body>
+    <!-- chatjs requirements -->
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="ChatJs/js/jquery.autosize.js"></script>
+    <link rel="stylesheet" href="Styles/styles.css" />
+    <!-- chatjs files-->
+    <script src="ChatJs/js/jquery.chatjs.utils.js"></script>
+    <script src="ChatJs/js/jquery.chatjs.adapter.servertypes.js"></script>
+    <script src="ChatJs/js/jquery.chatjs.adapter.js"></script>
+    <script src="ChatJs/js/jquery.chatjs.adapter.demo.js"></script>
+    <script src="ChatJs/js/jquery.chatjs.window.js"></script>
+    <script src="ChatJs/js/jquery.chatjs.messageboard.js"></script>
+    <script src="ChatJs/js/jquery.chatjs.userlist.js"></script>
+    <script src="ChatJs/js/jquery.chatjs.pmwindow.js"></script>
+    <script src="ChatJs/js/jquery.chatjs.friendswindow.js"></script>
+    <script src="ChatJs/js/jquery.chatjs.controller.js"></script>
+    <link rel="stylesheet" href="ChatJs/css/jquery.chatjs.css" />
+
+    <script type="text/javascript">
+        $(function () {
+            $.chat({
+                // your user information
+                userId: 1,
+                // id of the room. The friends list is based on the room Id
+                roomId: 1,
+                // text displayed when the other user is typing
+                typingText: ' is typing...',
+                // text displayed when there's no other users in the room
+                emptyRoomText: "There's no one around here. You can still open a session in another browser and chat with yourself :)",
+                // the adapter you are using
+                chatJsContentPath: '/basics/chatjs/',
+                adapter: new DemoAdapter()
+            });
+        });
+    </script>
+
+</head>
+<body>
     <div class="wrapper">
-      <header>
-        <h1>Chatjs</h1>
-        <p>Platform-independent jQuery plugin for chatting</p>
+        <header>
+            <h1>Chatjs</h1>
+            <p>Platform independent jQuery plugin for chatting.</p>
 
-        <p class="view"><a href="https://github.com/andrerpena/chatjs">View the Project on GitHub <small>andrerpena/chatjs</small></a></p>
+            <p class="view"><a href="https://github.com/andrerpena/chatjs">View the Project on GitHub <small>andrerpena/chatjs</small></a></p>
 
 
-        <ul>
-          <li><a href="https://github.com/andrerpena/chatjs/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/andrerpena/chatjs/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/andrerpena/chatjs">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+            <ul>
+                <li><a href="https://github.com/andrerpena/chatjs/zipball/master">Download <strong>ZIP File</strong></a></li>
+                <li><a href="https://github.com/andrerpena/chatjs/tarball/master">Download <strong>TAR Ball</strong></a></li>
+                <li><a href="https://github.com/andrerpena/chatjs">View On <strong>GitHub</strong></a></li>
+            </ul>
+        </header>
+        <section>
+            <h3>
+                <a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to ChatjS
+            </h3>
+            <p>ChatJS is a jQuery plugin for instant messaging. It's completely client-side, so it's completely platform agnostic. </p>
+            
+            <p>Server side communication is implemented through Adapters. The adapter is the piece of code that is responsible for handling client/server
+                communucation. ChatJS comes with a demo adapter that you can see running in the bottom right of this page. It's just an echobot that will repeat what you say.
+                You can use it as a boilerplate to implement your own. The server portion of your solution will be written according to the adapter specification.
+            </p>
+            <p>I intend to display here a list of all adapter implementations. ASP.NET MVC coming soon.</p>
+            
+            <p>Once your server code is ready, that's how ChatjS looks in the client:</p>
+            
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    $(function () {
+        $.chat({
+            userId: 1,
+            roomId: 1,
+            typingText: &#39; is typing...&#39;,
+            emptyRoomText: &quot;There&#39;s no one around here.&quot;,
+            chatJsContentPath: &#39;/basics/chatjs/&#39;,
+            adapter: new DemoAdapter()
+        });
+    });
+&lt;/script&gt;
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+            <h3>Contributing</h3>
+            <p>Pull requests are very welcome.</p>
+            <p>If you want to implement an adapter, that's very welcome too. Please let me know if you need assistance by submitting a <a href="https://github.com/andrerpena/chatjs/issues">GitHub issue</a>.
+            I have a tight schedule but I'll answer as I have time.</p>
+            <p>
+                ChatJS is written in <a href="http://www.typescriptlang.org/">TypeScript</a>. If you are not familiar with it, TypeScript has a flat learning curve, as it's a JavaScript superset. If know JavaScript, you know TypeScript, except for the aspects in which it adds
+                to the language.
+            </p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/andrerpena">andrerpena</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+            <p>
+                I develop ChatJS in <a href="http://msdn.microsoft.com/en-us/vstudio/aa718325.aspx">Visual studio</a>  because it's the IDE that i'm most used to and it has great typescript support. Alternatively, you can use
+                <a href="http://www.jetbrains.com/webstorm/">WebStorm</a> or simply use your editor of choice and the <a href="https://www.npmjs.org/package/typescript">NPM TypeScript Transpiler</a> to make it into vanilla JavaScript.
+            </p>
+            
+        </section>
+        <footer>
+            <p>This project is maintained by <a href="https://github.com/andrerpena">andrerpena</a></p>
+            <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
-  </body>
+
+</body>
 </html>
