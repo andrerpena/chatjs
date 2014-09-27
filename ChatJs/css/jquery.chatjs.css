@@ -1,0 +1,490 @@
+﻿/**
+ * ChatJS 1.0
+ * www.chatjs.net
+ * 
+ * Copyright (c) 2013, André Pena
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms,
+ * with or without modification, are permitted provided
+ * that the following conditions are met:
+ * 
+ *     - Redistributions of source code must retain the above copyright notice,
+ *       this list of conditions and the following disclaimer.
+ * 
+ *     - The software containing ChatJS must not directly or indirectly charge the
+ *       end user at any plan. Otherwise a commercial license is required.
+ **/
+
+.chat-window-tray {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: white;
+    background-image: url("../images/users.png");
+    background-position: 8px center;
+    background-repeat: no-repeat;
+    border-color: #000000;
+    border-color: rgba(0, 0, 0, 0.3);
+    border-image: none;
+    border-style: solid;
+    border-width: 0 1px;
+    bottom: 0;
+    font-family: Arial, Helvetica;
+    font-size: 12px;
+    height: 32px;
+    line-height: 14.4px;
+    position: fixed;
+    width: 40px;
+    z-index: 10001;
+}
+
+    .chat-window-tray.minimized {
+        background-color: #EEEEEE;
+        border-width: 1px 1px 0;
+        height: 29px;
+    }
+
+.chat-window {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-width: 1px 1px 0px 1px;
+    bottom: 0;
+    font-family: Arial, Helvetica;
+    font-size: 12px;
+    line-height: 14.4px;
+    position: fixed;
+    width: 230px;
+    z-index: 10000;
+}
+
+    .chat-window.expansible {
+        border-width: 1px;
+        margin-bottom: 31px;
+    }
+
+    .chat-window .temp-message {
+        color: rgb(176, 176, 176);
+    }
+
+.chat-window-title {
+    background: none repeat scroll 0 0 #EEEEEE;
+    color: #7E7E7E;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 6px;
+}
+
+    .chat-window-title .text {
+        margin-top: 1px;
+    }
+
+    .chat-window-title .close {
+        background-image: url("../images/clear.png");
+        float: right;
+        height: 16px;
+        opacity: 0.7;
+        width: 16px;
+    }
+
+        .chat-window-title .close:hover {
+            opacity: 0.5;
+        }
+
+    .chat-window-title.unread {
+        background: none repeat scroll 0 0 white;
+    }
+
+    .chat-window-title.online {
+        background-image: url("../images/chat-online.png");
+        background-position: 8px 10px;
+        background-repeat: no-repeat;
+        padding-left: 22px;
+    }
+
+    .chat-window-title.offline {
+        background-image: url("../images/chat-offline.png");
+        background-position: 8px 10px;
+        background-repeat: no-repeat;
+        padding-left: 22px;
+    }
+
+.chat-window-inner-content {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+    .chat-window-inner-content .loading-box {
+        background-position: center center;
+        background-repeat: no-repeat;
+        padding: 30px;
+    }
+
+textarea.chat-window-text-box {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #d5d7dc;
+    border-image: none;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px 0 0;
+    box-sizing: border-box;
+    font-size: 12px;
+    line-height: 1.2em;
+    margin: 0;
+    overflow: hidden;
+    padding: 3px;
+    resize: none;
+    width: 100%;
+}
+
+.user-list {
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+    .user-list .user-list-item {
+        background-position: 2px center;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        margin: 5px;
+        overflow: hidden;
+    }
+
+        .user-list .user-list-item .profile-picture {
+            display: block;
+            float: left;
+            height: 22px;
+            width: 22px;
+        }
+
+        .user-list .user-list-item .profile-status {
+            display: block;
+            float: right;
+            height: 7px;
+            margin: 8px 4px 0;
+            width: 7px;
+        }
+
+            .user-list .user-list-item .profile-status.online {
+                background-image: url("../images/chat-online.png");
+                background-repeat: no-repeat;
+            }
+
+            .user-list .user-list-item .profile-status.offline {
+                background-image: url("../images/chat-offline.png");
+                background-repeat: no-repeat;
+            }
+
+        .user-list .user-list-item .content {
+            margin: 4px 22px 0 30px;
+        }
+
+        .user-list .user-list-item.offline {
+            background-image: url("../images/chat-offline.png");
+        }
+
+        .user-list .user-list-item.online {
+            background-image: url("../images/chat-online.png");
+        }
+
+    .user-list .user-list-empty {
+        background-position: 2px center;
+        background-repeat: no-repeat;
+        padding: 10px;
+    }
+
+.message-board .chat-window-text-box-wrapper {
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    padding: 0px;
+}
+
+    .message-board .chat-window-text-box-wrapper .chat-window-text-box {
+        -moz-box-sizing: border-box; /* Firefox, other Gecko */
+        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+        box-sizing: border-box; /* Opera/IE 8+ */
+        height: 16px;
+    }
+
+.chat-message {
+    margin: 0 5px;
+    overflow: hidden;
+    padding: 2px 0;
+}
+
+    .chat-message:last-child {
+        border-bottom: none;
+    }
+
+    .chat-message .chat-gravatar-wrapper {
+        float: left;
+    }
+
+    .chat-message .chat-text-wrapper {
+        line-height: 1.2em;
+        margin-left: 30px;
+    }
+
+    .chat-message p {
+        margin: 0;
+    }
+
+.chat-window-content { /*min-height: 100px;*/
+}
+
+
+    .chat-window-content .message-warning {
+        margin: 0;
+    }
+
+    .chat-window-content .typing-signal {
+        color: gray;
+        margin: 3px 8px;
+    }
+
+    .chat-window-content input[type=text] {
+        -moz-box-sizing: border-box; /* Firefox, other Gecko */
+        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+        border-radius: 0;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        box-sizing: border-box; /* Opera/IE 8+ */
+        height: auto;
+        margin: 0;
+        margin: 0;
+        transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+        transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    }
+
+.happy {
+    background-image: url("../images/Emoticons/smile-2.png");
+    display: inline-block;
+    height: 16px;
+    vertical-align: top;
+    width: 16px;
+}
+
+.very-happy {
+    background-image: url("../images/Emoticons/smile-1.png");
+    display: inline-block;
+    height: 16px;
+    vertical-align: top;
+    width: 16px;
+}
+
+.sad {
+    background-image: url("../images/Emoticons/smile-3.png");
+    display: inline-block;
+    height: 16px;
+    vertical-align: top;
+    width: 16px;
+}
+
+.wary {
+    background-image: url("../images/Emoticons/smile-4.png");
+    display: inline-block;
+    height: 16px;
+    vertical-align: top;
+    width: 16px;
+}
+
+.astonished {
+    background-image: url("../images/Emoticons/smile-5.png");
+    display: inline-block;
+    height: 16px;
+    vertical-align: top;
+    width: 16px;
+}
+
+.tongue {
+    background-image: url("../images/Emoticons/smile-6.png");
+    display: inline-block;
+    height: 16px;
+    vertical-align: top;
+    width: 16px;
+}
+
+ul.horizontal-tab {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    list-style: none outside none;
+    margin-bottom: 4px;
+    margin-top: 2px;
+    padding: 0 8px;
+}
+
+    ul.horizontal-tab li .text {
+    }
+
+    ul.horizontal-tab li .close {
+        background-image: url("../images/clear.png");
+        display: none;
+        float: right;
+        height: 16px;
+        margin-left: 2px;
+        margin-right: -4px;
+        margin-top: -1px;
+        opacity: 0.7;
+        width: 16px;
+    }
+
+    ul.horizontal-tab li.selected .close {
+        display: inline;
+    }
+
+    ul.horizontal-tab .event-mark {
+        background-color: #C63636;
+        border-radius: 3px;
+        color: #FFFFFF;
+        font-size: 0.8em;
+        margin-left: 4px;
+        padding: 2px 4px;
+        position: relative;
+        top: -1px;
+    }
+
+    ul.horizontal-tab li {
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 6px;
+        position: relative;
+        top: 1px;
+    }
+
+.tab-content .rooms-list {
+    overflow-y: auto;
+}
+
+.rooms-list > .user-list-empty {
+    margin: 5px 10px;
+}
+
+
+ul.horizontal-tab li.selected {
+    background-color: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.3);
+    border-style: solid;
+    border-width: 1px 1px 0;
+    margin: 0 2px;
+    padding: 4px 6px;
+}
+
+.rooms-list-item {
+    cursor: pointer;
+    overflow: hidden;
+    padding: 5px 0;
+}
+
+    .rooms-list-item.hover {
+        background-color: #F0F3F5;
+    }
+
+    .rooms-list-item .room-name {
+        margin: 0 10px;
+    }
+
+    .rooms-list-item .users-online {
+        float: right;
+        font-weight: bold;
+        margin: 0 10px;
+    }
+
+.tab-content {
+    display: none;
+    overflow: hidden;
+}
+
+    .tab-content.selected-tab {
+        display: block;
+    }
+
+    .tab-content .content-wrapper {
+        border-top: 1px solid #E8E8E8;
+    }
+
+    .tab-content .left-panel {
+        border-right: 1px solid #E8E8E8;
+        margin-right: 162px;
+    }
+
+.message-board .messages-wrapper {
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 2px 0;
+}
+
+    .message-board .messages-wrapper .profile-picture {
+        height: 22px;
+        width: 22px;
+    }
+
+.tab-content .right-panel {
+    float: right;
+    width: 160px;
+}
+
+.message-board {
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    position: relative;
+    overflow: hidden;
+}
+
+    .message-board.pm-window {
+        margin-bottom: 3px;
+    }
+
+/* this is for the autocomplete to appear within */
+.flyout-box {
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    background-color: #EEEEEE;
+    float: left;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.flyout-text-box {
+    overflow: hidden;
+}
+
+.flyout-box .text-wrapper {
+    margin: 3px 25px 4px 3px;
+}
+
+.flyout-box .text-wrapper .flyout-text-box {
+    border: 1px solid #BBBBBB;
+    border-radius: 0;
+    box-sizing: border-box;
+    font-size: 12px;
+    line-height: 1.2em;
+    margin: 0;
+    overflow: hidden;
+    padding: 3px;
+    resize: none;
+    width: 100%;
+}
+
+.flyout-box .button-wrapper {
+    background-image: url("../images/add.png");
+    background-position: center center;
+    cursor: pointer;
+    float: right;
+    height: 20px;
+    margin: 4px 3px 2px 0;
+    width: 20px;
+}
