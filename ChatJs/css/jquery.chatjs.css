@@ -22,7 +22,7 @@
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
     background-color: white;
-    background-image: url("../images/users.png");
+    background-image: url("../Images/users.png");
     background-position: 8px center;
     background-repeat: no-repeat;
     border-color: #000000;
@@ -81,7 +81,7 @@
     }
 
     .chat-window-title .close {
-        background-image: url("../images/clear.png");
+        background-image: url("../Images/clear.png");
         float: right;
         height: 16px;
         opacity: 0.7;
@@ -97,14 +97,14 @@
     }
 
     .chat-window-title.online {
-        background-image: url("../images/chat-online.png");
+        background-image: url("../Images/chat-online.png");
         background-position: 8px 10px;
         background-repeat: no-repeat;
         padding-left: 22px;
     }
 
     .chat-window-title.offline {
-        background-image: url("../images/chat-offline.png");
+        background-image: url("../Images/chat-offline.png");
         background-position: 8px 10px;
         background-repeat: no-repeat;
         padding-left: 22px;
@@ -173,12 +173,12 @@ textarea.chat-window-text-box {
         }
 
             .user-list .user-list-item .profile-status.online {
-                background-image: url("../images/chat-online.png");
+                background-image: url("../Images/chat-online.png");
                 background-repeat: no-repeat;
             }
 
             .user-list .user-list-item .profile-status.offline {
-                background-image: url("../images/chat-offline.png");
+                background-image: url("../Images/chat-offline.png");
                 background-repeat: no-repeat;
             }
 
@@ -187,11 +187,11 @@ textarea.chat-window-text-box {
         }
 
         .user-list .user-list-item.offline {
-            background-image: url("../images/chat-offline.png");
+            background-image: url("../Images/chat-offline.png");
         }
 
         .user-list .user-list-item.online {
-            background-image: url("../images/chat-online.png");
+            background-image: url("../Images/chat-online.png");
         }
 
     .user-list .user-list-empty {
@@ -266,7 +266,7 @@ textarea.chat-window-text-box {
     }
 
 .happy {
-    background-image: url("../images/Emoticons/smile-2.png");
+    background-image: url("../Images/Emoticons/smile-2.png");
     display: inline-block;
     height: 16px;
     vertical-align: top;
@@ -274,7 +274,7 @@ textarea.chat-window-text-box {
 }
 
 .very-happy {
-    background-image: url("../images/Emoticons/smile-1.png");
+    background-image: url("../Images/Emoticons/smile-1.png");
     display: inline-block;
     height: 16px;
     vertical-align: top;
@@ -282,7 +282,7 @@ textarea.chat-window-text-box {
 }
 
 .sad {
-    background-image: url("../images/Emoticons/smile-3.png");
+    background-image: url("../Images/Emoticons/smile-3.png");
     display: inline-block;
     height: 16px;
     vertical-align: top;
@@ -290,7 +290,7 @@ textarea.chat-window-text-box {
 }
 
 .wary {
-    background-image: url("../images/Emoticons/smile-4.png");
+    background-image: url("../Images/Emoticons/smile-4.png");
     display: inline-block;
     height: 16px;
     vertical-align: top;
@@ -298,7 +298,7 @@ textarea.chat-window-text-box {
 }
 
 .astonished {
-    background-image: url("../images/Emoticons/smile-5.png");
+    background-image: url("../Images/Emoticons/smile-5.png");
     display: inline-block;
     height: 16px;
     vertical-align: top;
@@ -306,7 +306,7 @@ textarea.chat-window-text-box {
 }
 
 .tongue {
-    background-image: url("../images/Emoticons/smile-6.png");
+    background-image: url("../Images/Emoticons/smile-6.png");
     display: inline-block;
     height: 16px;
     vertical-align: top;
@@ -325,7 +325,7 @@ ul.horizontal-tab {
     }
 
     ul.horizontal-tab li .close {
-        background-image: url("../images/clear.png");
+        background-image: url("../Images/clear.png");
         display: none;
         float: right;
         height: 16px;
@@ -481,7 +481,7 @@ ul.horizontal-tab li.selected {
 }
 
 .flyout-box .button-wrapper {
-    background-image: url("../images/add.png");
+    background-image: url("../Images/add.png");
     background-position: center center;
     cursor: pointer;
     float: right;
