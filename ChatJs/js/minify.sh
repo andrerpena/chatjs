@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/local/bin/uglifyjs "jquery.autosize.js" "jquery.chatjs.utils.js" "jquery.chatjs.utils.js" "jquery.chatjs.adapter.servertypes.js"  "jquery.chatjs.adapter.js"  "jquery.chatjs.adapter.signalr.js" "jquery.chatjs.window.js" "jquery.chatjs.messageboard.js" "jquery.chatjs.userlist.js" "jquery.chatjs.pmwindow.js" "jquery.chatjs.friendswindow.js" "jquery.chatjs.controller.js" -o jquery.chatjs.min.js
