@@ -215,7 +215,7 @@ class ChatController implements IStateObject<ChatJsState> {
             // if there's already a PM window for the given user, we'll not create it
             if (this.pmWindows.length) {
                 for (var j = 0; j < this.pmWindows.length; j++) {
-                    if (state.pmWindows[i].otherUserId && this.pmWindows[j].otherUserId == state.pmWindows[j].otherUserId) {
+                    if (state.pmWindows[i].otherUserId && this.pmWindows[j].otherUserId == state.pmWindows[i].otherUserId) {
                         shouldCreatePmWindow = false;
                         break;
                     }
