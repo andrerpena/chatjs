@@ -27,7 +27,7 @@ class UserList {
         this.$el = jQuery;
 
         var defaultOptions = new UserListOptions();
-        defaultOptions.emptyRoomText = "Nenhum atendimento em andamento.";
+        defaultOptions.emptyRoomText = "No users available for chatting.";
         defaultOptions.height = 100;
         defaultOptions.excludeCurrentUser = false;
         defaultOptions.userClicked = () => {};

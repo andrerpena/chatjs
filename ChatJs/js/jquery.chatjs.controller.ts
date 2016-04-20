@@ -89,7 +89,6 @@ class ChatController implements IStateObject<ChatJsState> {
                 }
             });
 
-            // Fecha as janelas de chat privado que já tiverem esgotado o intervalo de atendimento
             this.options.adapter.client.onUserListChanged((userListData: ChatUserListChangedInfo) => {
                 var indexRemove = [];
                 for (var i = 0; i < this.pmWindows.length; i++) {
