@@ -2,18 +2,18 @@
 var DemoAdapterConstants = (function () {
     function DemoAdapterConstants() {
     }
+    // Id of the current user (you)
     DemoAdapterConstants.CURRENT_USER_ID = 1;
-
+    // Id of the other user (Echobot)
     DemoAdapterConstants.ECHOBOT_USER_ID = 2;
-
+    // Id of the default room
     DemoAdapterConstants.DEFAULT_ROOM_ID = 1;
-
+    // time until Echobot starts typing
     DemoAdapterConstants.ECHOBOT_TYPING_DELAY = 1000;
-
+    // time until Echobot sends the message back
     DemoAdapterConstants.ECHOBOT_REPLY_DELAY = 3000;
     return DemoAdapterConstants;
 })();
-
 var DemoClientAdapter = (function () {
     function DemoClientAdapter() {
         this.messagesChangedHandlers = [];
@@ -24,38 +24,31 @@ var DemoClientAdapter = (function () {
     DemoClientAdapter.prototype.onMessagesChanged = function (handler) {
         this.messagesChangedHandlers.push(handler);
     };
-
     // adds a handler to the typingSignalReceived event
     DemoClientAdapter.prototype.onTypingSignalReceived = function (handler) {
         this.typingSignalReceivedHandlers.push(handler);
     };
-
     // adds a handler to the userListChanged event
     DemoClientAdapter.prototype.onUserListChanged = function (handler) {
         this.userListChangedHandlers.push(handler);
     };
-
     DemoClientAdapter.prototype.triggerMessagesChanged = function (message) {
         for (var i = 0; i < this.messagesChangedHandlers.length; i++)
             this.messagesChangedHandlers[i](message);
     };
-
     DemoClientAdapter.prototype.triggerTypingSignalReceived = function (typingSignal) {
         for (var i = 0; i < this.typingSignalReceivedHandlers.length; i++)
             this.typingSignalReceivedHandlers[i](typingSignal);
     };
-
     DemoClientAdapter.prototype.triggerUserListChanged = function (userListChangedInfo) {
         for (var i = 0; i < this.userListChangedHandlers.length; i++)
             this.userListChangedHandlers[i](userListChangedInfo);
     };
     return DemoClientAdapter;
 })();
-
 var DemoServerAdapter = (function () {
     function DemoServerAdapter(clientAdapter) {
         this.clientAdapter = clientAdapter;
-
         // configuring users
         var myUser = new ChatUserInfo();
         myUser.Id = DemoAdapterConstants.CURRENT_USER_ID;
@@ -64,7 +57,6 @@ var DemoServerAdapter = (function () {
         myUser.Email = "andrerpena@gmail.com";
         myUser.ProfilePictureUrl = "http://www.gravatar.com/avatar/574700aef74b21d386ba1250b77d20c6.jpg";
         myUser.Status = 1 /* Online */;
-
         // Echobot is the guy that will repeat everything you say
         var echoBotUser = new ChatUserInfo();
         echoBotUser.Id = DemoAdapterConstants.ECHOBOT_USER_ID;
@@ -73,31 +65,24 @@ var DemoServerAdapter = (function () {
         echoBotUser.Email = "echobot1984@gmail.com";
         echoBotUser.ProfilePictureUrl = "http://www.gravatar.com/avatar/4ec6b20c5fed48b6b01e88161c0a3e20.jpg";
         echoBotUser.Status = 1 /* Online */;
-
         // adds the users in the global user list
         this.users = new Array();
         this.users.push(myUser);
         this.users.push(echoBotUser);
-
         // configuring rooms
         var defaultRoom = new ChatRoomInfo();
         defaultRoom.Id = 1;
         defaultRoom.Name = "Default Room";
         defaultRoom.UsersOnline = this.users.length;
-
         this.rooms = new Array();
         this.rooms.push(defaultRoom);
-
         // configuring client to return every event to me
-        this.clientAdapter.onMessagesChanged(function (message) {
-            return function () {
-            };
-        });
+        this.clientAdapter.onMessagesChanged(function (message) { return function () {
+        }; });
     }
     DemoServerAdapter.prototype.sendMessage = function (roomId, conversationId, otherUserId, messageText, clientGuid, done) {
         var _this = this;
         console.log("DemoServerAdapter: sendMessage");
-
         // we have to send the current message to the current user first
         // in chatjs, when you send a message to someone, the same message bounces back to the user
         // just so that all browser windows are synchronized
@@ -108,11 +93,9 @@ var DemoServerAdapter = (function () {
         bounceMessage.ConversationId = conversationId;
         bounceMessage.Message = messageText;
         bounceMessage.ClientGuid = clientGuid;
-
         setTimeout(function () {
             _this.clientAdapter.triggerMessagesChanged(bounceMessage);
         }, 300);
-
         // now let's send a message as if it was from the Echobot
         setTimeout(function () {
             _this.getUserInfo(otherUserId, function (echobotUserInfo) {
@@ -120,13 +103,10 @@ var DemoServerAdapter = (function () {
                 typingSignal.ConversationId = conversationId;
                 typingSignal.RoomId = roomId;
                 typingSignal.UserFrom = echobotUserInfo;
-
                 // if it's not a private message, the echo message will be to the current user
                 if (!roomId && !conversationId)
                     typingSignal.UserToId = DemoAdapterConstants.CURRENT_USER_ID;
-
                 _this.clientAdapter.triggerTypingSignalReceived(typingSignal);
-
                 setTimeout(function () {
                     // if otherUserId is not null, this is a private message
                     // if roomId is not null, this is a message to a room
@@ -136,27 +116,22 @@ var DemoServerAdapter = (function () {
                     echoMessage.RoomId = roomId;
                     echoMessage.ConversationId = conversationId;
                     echoMessage.Message = "You said: " + messageText;
-
                     // if it's not a private message, the echo message will be to the current user
                     if (!roomId && !conversationId)
                         echoMessage.UserToId = DemoAdapterConstants.CURRENT_USER_ID;
-
                     // this will send a message to the user 1 (you) as if it was from user 2 (Echobot)
                     _this.clientAdapter.triggerMessagesChanged(echoMessage);
                 }, DemoAdapterConstants.ECHOBOT_REPLY_DELAY);
             });
         }, DemoAdapterConstants.ECHOBOT_TYPING_DELAY);
     };
-
     DemoServerAdapter.prototype.sendTypingSignal = function (roomId, conversationId, userToId, done) {
         console.log("DemoServerAdapter: sendTypingSignal");
     };
-
     DemoServerAdapter.prototype.getMessageHistory = function (roomId, conversationId, otherUserId, done) {
         console.log("DemoServerAdapter: getMessageHistory");
         done([]);
     };
-
     DemoServerAdapter.prototype.getUserInfo = function (userId, done) {
         console.log("DemoServerAdapter: getUserInfo");
         var user = null;
@@ -170,7 +145,6 @@ var DemoServerAdapter = (function () {
             throw "User doesn't exit. User id: " + userId;
         done(user);
     };
-
     DemoServerAdapter.prototype.getUserList = function (roomId, conversationId, done) {
         console.log("DemoServerAdapter: getUserList");
         if (roomId == DemoAdapterConstants.DEFAULT_ROOM_ID) {
@@ -179,24 +153,18 @@ var DemoServerAdapter = (function () {
         }
         throw "The given room or conversation is not supported by the demo adapter";
     };
-
     DemoServerAdapter.prototype.enterRoom = function (roomId, done) {
         console.log("DemoServerAdapter: enterRoom");
-
         if (roomId != DemoAdapterConstants.DEFAULT_ROOM_ID)
             throw "Only the default room is supported in the demo adapter";
-
         var userListChangedInfo = new ChatUserListChangedInfo();
         userListChangedInfo.RoomId = DemoAdapterConstants.DEFAULT_ROOM_ID;
         userListChangedInfo.UserList = this.users;
-
         this.clientAdapter.triggerUserListChanged(userListChangedInfo);
     };
-
     DemoServerAdapter.prototype.leaveRoom = function (roomId, done) {
         console.log("DemoServerAdapter: leaveRoom");
     };
-
     // gets the given user from the user list
     DemoServerAdapter.prototype.getUserById = function (userId) {
         for (var i = 0; i < this.users.length; i++) {
@@ -207,7 +175,6 @@ var DemoServerAdapter = (function () {
     };
     return DemoServerAdapter;
 })();
-
 var DemoAdapter = (function () {
     function DemoAdapter() {
     }

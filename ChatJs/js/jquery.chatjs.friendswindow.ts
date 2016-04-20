@@ -41,10 +41,10 @@ class ChatFriendsWindow implements IWindow<ChatFriendsWindowState> {
     constructor(options: ChatFriendsWindowOptions) {
 
         var defaultOptions = new ChatFriendsWindowOptions();
-        defaultOptions.titleText = "Friends";
+        defaultOptions.titleText = "Atendimentos";
         defaultOptions.isMaximized = true;
         defaultOptions.offsetRight = 10;
-        defaultOptions.emptyRoomText = "No users available for chatting.";
+        defaultOptions.emptyRoomText = "Nenhum atendimento em andamento.";
 
         this.options = $.extend({}, defaultOptions, options);
         
