@@ -82,9 +82,34 @@ class ChatController implements IStateObject<ChatJsState> {
             var state = this.getState();
             // the controller must have a listener to the "messages-changed" event because it has to create
             // new PM windows when the user receives it
-            this.options.adapter.client.onMessagesChanged((message:ChatMessageInfo) => {
-                if (message.UserToId && message.UserToId == this.options.userId && !this.findPmWindowByOtherUserId(message.UserFromId)) {
-                    this.createPmWindow(message.UserFromId, true, true);
+            this.options.adapter.client.onMessagesChanged(0, (message: ChatMessageInfo) => {
+                var _thisControl = this;
+                if (message.UserToId >= 0 && message.UserToId == this.options.userId && !this.findPmWindowByOtherUserId(message.UserFromId)) {
+                    setTimeout(function () { _thisControl.createPmWindow(message.UserFromId, true, true) }, 2000); // Evita o historico nao estar atualizado com as mensagens.
+                }
+            });
+
+            this.options.adapter.client.onUserListChanged((userListData: ChatUserListChangedInfo) => {
+                var indexRemove = [];
+                for (var i = 0; i < this.pmWindows.length; i++) {
+                    var pmWin = this.pmWindows[i];
+                    var removePmWindow = true; // Ate o momento é para remover, a nao ser que seja encontrado na lista de usuarios novos
+
+                    for (var j = 0; j < userListData.UserList.length; j++) {
+                        if (userListData.UserList[j].Id == pmWin.otherUserId) {
+                            removePmWindow = false;
+                        }
+                    }
+                    if (removePmWindow) {
+                        indexRemove.push(i);
+                    }
+                }
+
+                var indexOffset = 0;
+                for (var i = 0; i < indexRemove.length; i++) {
+                    this.pmWindows[i - indexOffset].pmWindow.chatWindow.$window.remove();
+                    this.pmWindows[i - indexOffset].pmWindow.options.onClose(chatJs.pmWindows[i - indexOffset].pmWindow.chatWindow);
+                    indexOffset++;
                 }
             });
 

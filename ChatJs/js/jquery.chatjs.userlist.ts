@@ -74,6 +74,9 @@ class UserList {
         } else {
             for (var i = 0; i < userList.length; i++) {
 
+                var usrList = this;
+                var currentUsrList = userList[i];
+
                 var $userListItem = $("<div/>")
                     .addClass("user-list-item")
                     .attr("data-val-id", userList[i].Id)
@@ -88,6 +91,20 @@ class UserList {
                     .addClass("profile-status")
                     .addClass(userList[i].Status == 0 ? "offline" : "online")
                     .appendTo($userListItem);
+
+                $("<a/>")
+                    .attr('href', 'javascript:void(0);')
+                    .text('x')
+                    .addClass("profile-close")
+                    .appendTo($userListItem)
+                    .on('click', function (e) {
+                        e.stopPropagation();
+                        if (confirm("Deseja realmente fechar este atendimento?")) {
+                            usrList.options.adapter.server.fecharAtendimento(currentUsrList.Id, userList => {
+                                usrList.populateList(userList);
+                            });
+                        }
+                    });
 
                 $("<div/>")
                     .addClass("content")
