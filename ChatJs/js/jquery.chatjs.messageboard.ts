@@ -52,14 +52,6 @@ class MessageBoard {
 
         this.$textBox = $("<textarea />").attr("rows", "1").addClass("chat-window-text-box").appendTo($windowTextBoxWrapper);
 
-        var otherUserId = this.options.otherUserId;
-        var serverAdapter = <YatServerAdapter>this.options.adapter.server;
-
-        // Altera o status das mensagens para lido.
-        this.$textBox.focus(function () {
-            serverAdapter.mudarStatus(otherUserId, 3);
-        })
-
         this.$textBox.autosize({
             callback: ta => {
                 var messagesHeight = this.options.height - $(ta).outerHeight();
