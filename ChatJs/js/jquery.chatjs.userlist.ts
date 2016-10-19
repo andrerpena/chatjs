@@ -96,15 +96,7 @@ class UserList {
                     .attr('href', 'javascript:void(0);')
                     .text('x')
                     .addClass("profile-close")
-                    .appendTo($userListItem)
-                    .on('click', function (e) {
-                        e.stopPropagation();
-                        if (confirm("Deseja realmente fechar este atendimento?")) {
-                            usrList.options.adapter.server.fecharAtendimento(currentUsrList.Id, userList => {
-                                usrList.populateList(userList);
-                            });
-                        }
-                    });
+                    .appendTo($userListItem);
 
                 $("<div/>")
                     .addClass("content")
